@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4ktdaw50xfjp"]
+[gd_scene load_steps=15 format=3 uid="uid://c4ktdaw50xfjp"]
 
 [ext_resource type="Script" uid="uid://dcrkeho0w7ocl" path="res://camera_3d.gd" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://ds2yavihudyce" path="res://game_board.gd" id="2_pyidc"]
+[ext_resource type="Script" uid="uid://yxcwfkk0n0bv" path="res://bar.gd" id="2_vvh5c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vho56"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -26,6 +27,11 @@ metallic = 1.0
 height = 1.348
 radius = 0.034
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_pyidc"]
+top_radius = 0.034
+bottom_radius = 0.034
+height = 1.348
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pyidc"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vvh5c"]
@@ -40,7 +46,7 @@ height = 0.098
 [node name="World" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="World"]
-transform = Transform3D(-3.6908e-08, 0.671681, -0.74084, 2.34198e-08, 0.74084, 0.671681, 1, 7.44007e-09, -4.30736e-08, 7.1464, 1.39216, 0.198849)
+transform = Transform3D(-4.16324e-08, 0.462398, -0.886672, 1.33202e-08, 0.886672, 0.462398, 1, 7.44008e-09, -4.30736e-08, -0.236177, 1.97145, -0.265294)
 fov = 90.6256
 script = ExtResource("1_pq8q7")
 
@@ -68,15 +74,15 @@ shape = SubResource("SphereShape3D_vho56")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00802624, 0.00398338, 0.000215888)
 mass = 100.0
 gravity_scale = 0.0
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Bar"]
-transform = Transform3D(0.998496, 0.038612, -0.0389147, -0.0379598, -0.025163, -0.998962, -0.0395511, 0.998937, -0.0236594, 0.242135, 1.05113, 0.0377549)
-radius = 0.034
-height = 1.348
+script = ExtResource("2_vvh5c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bar"]
 transform = Transform3D(0.998268, 0.0378924, -0.0387506, -0.0378176, -0.0250309, -0.998709, -0.0388236, 0.998706, -0.0235607, 0.242, 1.051, 0.038)
 shape = SubResource("CylinderShape3D_pq8q7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bar"]
+transform = Transform3D(0.998529, 0.0379024, -0.0387608, -0.0378275, -0.0250375, -0.998971, -0.0388338, 0.998968, -0.0235669, 0.242, 1.051, 0.038)
+mesh = SubResource("CylinderMesh_pyidc")
 
 [node name="GameBoard" type="CSGCombiner3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0323042, 0.0238165, -0.0232814)
