@@ -1,4 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4ktdaw50xfjp"]
+[gd_scene load_steps=10 format=3 uid="uid://c4ktdaw50xfjp"]
+
+[ext_resource type="Script" uid="uid://dcrkeho0w7ocl" path="res://camera_3d.gd" id="1_pq8q7"]
+[ext_resource type="Script" uid="uid://ds2yavihudyce" path="res://game_board.gd" id="2_pyidc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vho56"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -28,8 +31,9 @@ radius = 0.034
 [node name="World" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="World"]
-transform = Transform3D(-4.37114e-08, 0.170209, -0.985408, 0, 0.985408, 0.170209, 1, 7.44009e-09, -4.30735e-08, -0.439771, 1.88249, 0.00197294)
+transform = Transform3D(-3.6908e-08, 0.671681, -0.74084, 2.34198e-08, 0.74084, 0.671681, 1, 7.44007e-09, -4.30736e-08, 7.1464, 1.39216, 0.198849)
 fov = 90.6256
+script = ExtResource("1_pq8q7")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -51,6 +55,19 @@ material = SubResource("StandardMaterial3D_vho56")
 transform = Transform3D(0.137, 0, 0, 0, 0.137, 0, 0, 0, 0.137, -0.24, 1.254, 0.137)
 shape = SubResource("SphereShape3D_vho56")
 
+[node name="TestBall" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.30826, 0.207727, -0.204716)
+mass = 0.155
+physics_material_override = SubResource("PhysicsMaterial_vho56")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="TestBall"]
+transform = Transform3D(0.14, 0, 0, 0, 0.131, 0, 0, 0, 0.131, 0.152369, 0.339749, 0.401858)
+material = SubResource("StandardMaterial3D_vho56")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestBall"]
+transform = Transform3D(0.137, 0, 0, 0, 0.137, 0, 0, 0, 0.137, -0.24, 1.254, 0.137)
+shape = SubResource("SphereShape3D_vho56")
+
 [node name="Bar" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00802624, 0.00398338, 0.000215888)
 mass = 100.0
@@ -69,6 +86,7 @@ shape = SubResource("CylinderShape3D_pq8q7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0323042, 0.0238165, -0.0232814)
 operation = 2
 use_collision = true
+script = ExtResource("2_pyidc")
 
 [node name="MainGame" type="CSGBox3D" parent="GameBoard"]
 transform = Transform3D(0.995801, 0.152253, 0, -0.143497, 1.05656, 0, 0, 0, 1.00609, 0.529782, 1.71499, 0.0241716)
@@ -133,6 +151,81 @@ height = 0.668335
 sides = 24
 
 [node name="Hole9" type="CSGCylinder3D" parent="GameBoard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.516847, 1.75818, -0.374138)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="testgameboard" type="CSGCombiner3D" parent="."]
+transform = Transform3D(0.238533, 0.971134, 0, -0.971134, 0.238533, 0, 0, 0, 1, 6.51562, 0.0238165, -0.0232814)
+operation = 2
+use_collision = true
+script = ExtResource("2_pyidc")
+
+[node name="MainGame" type="CSGBox3D" parent="testgameboard"]
+transform = Transform3D(0.995801, 0.152253, 0, -0.143497, 1.05656, 0, 0, 0, 1.00609, 0.529782, 1.71499, 0.0241716)
+use_collision = true
+size = Vector3(0.245667, 1.58056, 1.36732)
+
+[node name="Hole1" type="CSGCylinder3D" parent="testgameboard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.602228, 2.22256, -0.064284)
+operation = 2
+use_collision = true
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole2" type="CSGCylinder3D" parent="testgameboard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.5647, 2.30222, 0.341926)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole3" type="CSGCylinder3D" parent="testgameboard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.989776, -0.142629, 0, 0, 0, 1, 0.538042, 2.06391, 0.206761)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole4" type="CSGCylinder3D" parent="testgameboard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.52913, 1.96181, -0.237839)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole5" type="CSGCylinder3D" parent="testgameboard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.436924, 1.61757, 0.352642)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole6" type="CSGCylinder3D" parent="testgameboard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.497764, 1.74856, 0.0986901)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole7" type="CSGCylinder3D" parent="testgameboard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.499442, 1.85308, 0.374637)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole8" type="CSGCylinder3D" parent="testgameboard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.479862, 1.59381, -0.133414)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole9" type="CSGCylinder3D" parent="testgameboard"]
 transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.516847, 1.75818, -0.374138)
 operation = 2
 radius = 0.0776367
