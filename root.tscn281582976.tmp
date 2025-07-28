@@ -1,10 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4ktdaw50xfjp"]
+[gd_scene load_steps=12 format=3 uid="uid://c4ktdaw50xfjp"]
 
 [ext_resource type="Script" uid="uid://dcrkeho0w7ocl" path="res://camera_3d.gd" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://ds2yavihudyce" path="res://game_board.gd" id="2_pyidc"]
 [ext_resource type="Script" uid="uid://yxcwfkk0n0bv" path="res://bar.gd" id="2_vvh5c"]
-[ext_resource type="Script" uid="uid://c777f60fx3p0k" path="res://left_arm.gd" id="4_jnlp7"]
-[ext_resource type="Script" uid="uid://bia8g6y57528q" path="res://right_arm.gd" id="5_l8v81"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vho56"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -36,18 +34,12 @@ radius = 0.05
 radius = 0.05
 height = 0.098
 
-[sub_resource type="BoxMesh" id="BoxMesh_vvh5c"]
-size = Vector3(0.02, 0.175, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_28aoi"]
-size = Vector3(0.02, 0.175, 1)
-
 [node name="Root" type="Node3D"]
 
 [node name="World" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="World"]
-transform = Transform3D(0.106906, -0.282398, 0.953322, 0.0933289, 0.957434, 0.27315, -0.989879, 0.059771, 0.128712, 1.36278, 2.13563, -0.00601959)
+transform = Transform3D(-4.16324e-08, 0.462398, -0.886672, 1.33202e-08, 0.886672, 0.462398, 1, 7.44008e-09, -4.30736e-08, -0.236177, 1.97145, -0.265294)
 fov = 90.6256
 script = ExtResource("1_pq8q7")
 
@@ -59,7 +51,7 @@ shadow_enabled = true
 environment = SubResource("Environment_pyidc")
 
 [node name="Bar" type="RigidBody3D" parent="."]
-transform = Transform3D(0.998806, 0, -0.0488498, 0, 1, 0, 0.0488498, 0, 0.998806, 0.453048, 0.16803, 0.000215888)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00802624, 0.00398338, 0.000215888)
 mass = 999.0
 gravity_scale = 0.0
 script = ExtResource("2_vvh5c")
@@ -73,15 +65,58 @@ transform = Transform3D(0.998529, 0.0379024, -0.0387608, -0.0378275, -0.0250375,
 mesh = SubResource("CylinderMesh_pyidc")
 
 [node name="GameBoard" type="CSGCombiner3D" parent="."]
-transform = Transform3D(0.99863, -0.052336, 0, 0.052336, 0.99863, 0, 0, 0, 1, 0.0323042, 0.0238165, -0.0232814)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0323042, 0.0238165, -0.0232814)
 operation = 2
 use_collision = true
 script = ExtResource("2_pyidc")
 
 [node name="MainGame" type="CSGBox3D" parent="GameBoard"]
-transform = Transform3D(1.00609, 0, 0, 0, 1.06747, 0, 0, 0, 1.00609, 0.529782, 1.71499, 0.0241716)
+transform = Transform3D(0.995801, 0.152253, 0, -0.143497, 1.05656, 0, 0, 0, 1.00609, 0.529782, 1.71499, 0.0241716)
 use_collision = true
 size = Vector3(0.245667, 1.58056, 1.36732)
+
+[node name="Hole1" type="CSGCylinder3D" parent="GameBoard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.602228, 2.22256, -0.064284)
+operation = 2
+use_collision = true
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole2" type="CSGCylinder3D" parent="GameBoard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.5647, 2.30222, 0.341926)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole3" type="CSGCylinder3D" parent="GameBoard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.989776, -0.142629, 0, 0, 0, 1, 0.538042, 2.06391, 0.206761)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole4" type="CSGCylinder3D" parent="GameBoard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.52913, 1.96181, -0.237839)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole5" type="CSGCylinder3D" parent="GameBoard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.436924, 1.61757, 0.352642)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
+
+[node name="Hole6" type="CSGCylinder3D" parent="GameBoard"]
+transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.497764, 1.74856, 0.0986901)
+operation = 2
+radius = 0.0776367
+height = 0.668335
+sides = 24
 
 [node name="Hole7" type="CSGCylinder3D" parent="GameBoard"]
 transform = Transform3D(-0.142629, 0.989776, 0, -0.98977, -0.142628, -0.00349065, -0.00345496, -0.000497868, 0.999994, 0.499442, 1.85308, 0.374637)
@@ -180,8 +215,7 @@ height = 0.668335
 sides = 24
 
 [node name="Ball" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.658471, 1.70667, -0.0463247)
-mass = 0.003
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37775, 1.70667, -0.0463247)
 physics_material_override = SubResource("PhysicsMaterial_pyidc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
@@ -191,34 +225,3 @@ debug_color = Color(0, 0.6, 0.701961, 0.890196)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
 mesh = SubResource("SphereMesh_pyidc")
-
-[node name="LeftArm" type="RigidBody3D" parent="."]
-transform = Transform3D(-0.0390157, 0, 0.999239, 0, 1, 0, -0.999239, 0, -0.0390157, 0.385429, 1.21441, 0.50008)
-script = ExtResource("4_jnlp7")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LeftArm"]
-mesh = SubResource("BoxMesh_vvh5c")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftArm"]
-shape = SubResource("BoxShape3D_28aoi")
-
-[node name="RightArm" type="RigidBody3D" parent="."]
-transform = Transform3D(-0.0390157, 0, 0.999239, 0, 1, 0, -0.999239, 0, -0.0390157, 0.385429, 1.21441, -0.533604)
-script = ExtResource("5_l8v81")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RightArm"]
-mesh = SubResource("BoxMesh_vvh5c")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RightArm"]
-shape = SubResource("BoxShape3D_28aoi")
-
-[node name="Joints" type="Node3D" parent="."]
-transform = Transform3D(-0.0390157, 0, 0.999239, 0, 1, 0, -0.999239, 0, -0.0390157, 0.385429, 1.21441, -0.619187)
-
-[node name="LeftArmtoBar" type="Generic6DOFJoint3D" parent="Joints"]
-node_a = NodePath("../../Bar")
-node_b = NodePath("../../LeftArm")
-
-[node name="RightArmtoBar" type="Generic6DOFJoint3D" parent="Joints"]
-node_a = NodePath("../../Bar")
-node_b = NodePath("../../RightArm")
