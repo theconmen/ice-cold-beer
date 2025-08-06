@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://stixinbvkhn0"]
+
+[ext_resource type="Script" uid="uid://r67p8lqtt3p6" path="res://Testing/bar.gd" id="1_aemyx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjg5e"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_is17l"]
+sky_material = SubResource("ProceduralSkyMaterial_qjg5e")
+
+[sub_resource type="Environment" id="Environment_mt7nc"]
+background_mode = 2
+sky = SubResource("Sky_is17l")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_75mou"]
+size = Vector3(0.1, 3, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5pt4y"]
+size = Vector3(0.1, 3, 0.4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_be7fw"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 2.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_on8wi"]
+height = 2.5
+radius = 0.1
+
+[node name="TestScenes" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mt7nc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="LeftArm" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.990268, 0.139173, 0, -0.139173, 0.990268, -1.29492, 1.23896, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LeftArm"]
+mesh = SubResource("BoxMesh_75mou")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftArm"]
+shape = SubResource("BoxShape3D_5pt4y")
+
+[node name="LeftJoint" type="SliderJoint3D" parent="LeftArm"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.29492, -1.23896, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Bar")
+linear_limit/upper_distance = 104.43
+linear_limit/lower_distance = 0.0
+
+[node name="RightArm" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.990268, 0.139173, 0, -0.139173, 0.990268, 1.21109, 1.1249, 0.0166569)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RightArm"]
+mesh = SubResource("BoxMesh_75mou")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightArm"]
+shape = SubResource("BoxShape3D_5pt4y")
+
+[node name="RightJoint" type="SliderJoint3D" parent="RightArm"]
+transform = Transform3D(-4.37114e-08, -1, 0, 0.990268, -4.3286e-08, 0.139173, -0.139173, 6.08345e-09, 0.990268, -3.23592, -1.22691, 0.172431)
+node_a = NodePath("..")
+node_b = NodePath("../../Bar")
+linear_limit/upper_distance = 104.43
+linear_limit/lower_distance = 0.0
+
+[node name="Bar" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.148794)
+gravity_scale = 0.0
+script = ExtResource("1_aemyx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bar"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_be7fw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bar"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_on8wi")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999886, -0.00226911, 0.0149433, 0.000239357, 0.99092, 0.134453, -0.0151127, -0.134434, 0.990807, -0.138478, 1.27568, 1.50045)
+fov = 95.3

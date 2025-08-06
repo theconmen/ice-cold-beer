@@ -1,10 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://c4ktdaw50xfjp"]
 
-[ext_resource type="Script" uid="uid://dcrkeho0w7ocl" path="res://camera_3d.gd" id="1_pq8q7"]
-[ext_resource type="Script" uid="uid://ds2yavihudyce" path="res://game_board.gd" id="2_pyidc"]
-[ext_resource type="Script" uid="uid://yxcwfkk0n0bv" path="res://bar.gd" id="2_vvh5c"]
-[ext_resource type="Script" uid="uid://c777f60fx3p0k" path="res://left_arm.gd" id="4_jnlp7"]
-[ext_resource type="Script" uid="uid://bia8g6y57528q" path="res://right_arm.gd" id="5_l8v81"]
+[ext_resource type="Script" uid="uid://dcrkeho0w7ocl" path="res://MainGame/camera_3d.gd" id="1_pq8q7"]
+[ext_resource type="Script" uid="uid://ds2yavihudyce" path="res://MainGame/game_board.gd" id="2_pyidc"]
+[ext_resource type="Script" uid="uid://yxcwfkk0n0bv" path="res://MainGame/bar.gd" id="2_vvh5c"]
+[ext_resource type="Script" uid="uid://c777f60fx3p0k" path="res://MainGame/left_arm.gd" id="4_jnlp7"]
+[ext_resource type="Script" uid="uid://bia8g6y57528q" path="res://MainGame/right_arm.gd" id="5_l8v81"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vho56"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -19,13 +19,13 @@ sky = SubResource("Sky_pq8q7")
 tonemap_mode = 2
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_pq8q7"]
-height = 1.348
+height = 1.6
 radius = 0.034
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_pyidc"]
 top_radius = 0.034
 bottom_radius = 0.034
-height = 1.348
+height = 1.6
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pyidc"]
 
@@ -37,10 +37,10 @@ radius = 0.05
 height = 0.098
 
 [sub_resource type="BoxMesh" id="BoxMesh_vvh5c"]
-size = Vector3(0.02, 0.175, 1)
+size = Vector3(0.02, 0.175, 0.6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_28aoi"]
-size = Vector3(0.02, 0.175, 1)
+size = Vector3(0.02, 0.175, 0.6)
 
 [node name="Root" type="Node3D"]
 
@@ -58,18 +58,32 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_pyidc")
 
-[node name="Bar" type="RigidBody3D" parent="."]
+[node name="FrontBar" type="RigidBody3D" parent="."]
 transform = Transform3D(0.998806, 0, -0.0488498, 0, 1, 0, 0.0488498, 0, 0.998806, 0.453048, 0.16803, 0.000215888)
 mass = 999.0
 gravity_scale = 0.0
 script = ExtResource("2_vvh5c")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Bar"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FrontBar"]
 transform = Transform3D(0.998268, 0.0378924, -0.0387506, -0.0378176, -0.0250309, -0.998709, -0.0388236, 0.998706, -0.0235607, 0.242, 1.051, 0.038)
 shape = SubResource("CylinderShape3D_pq8q7")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Bar"]
-transform = Transform3D(0.998529, 0.0379024, -0.0387608, -0.0378275, -0.0250375, -0.998971, -0.0388338, 0.998968, -0.0235669, 0.242, 1.051, 0.038)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FrontBar"]
+transform = Transform3D(0.998529, 0.0379024, -0.0387608, -0.0378275, -0.0250375, -0.998971, -0.0388338, 0.998968, -0.0235669, 0.239225, 1.051, -0.0187441)
+mesh = SubResource("CylinderMesh_pyidc")
+
+[node name="BackBar" type="RigidBody3D" parent="."]
+transform = Transform3D(0.998806, 0, -0.0488498, 0, 1, 0, 0.0488498, 0, 0.998806, 0.071594, 0.16803, 0.000215888)
+mass = 999.0
+gravity_scale = 0.0
+script = ExtResource("2_vvh5c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackBar"]
+transform = Transform3D(0.998268, 0.0378924, -0.0387506, -0.0378176, -0.0250309, -0.998709, -0.0388236, 0.998706, -0.0235607, 0.242, 1.051, 0.038)
+shape = SubResource("CylinderShape3D_pq8q7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BackBar"]
+transform = Transform3D(0.998529, 0.0379024, -0.0387608, -0.0378275, -0.0250375, -0.998971, -0.0388338, 0.998968, -0.0235669, 0.239225, 1.051, -0.0187441)
 mesh = SubResource("CylinderMesh_pyidc")
 
 [node name="GameBoard" type="CSGCombiner3D" parent="."]
@@ -193,32 +207,44 @@ debug_color = Color(0, 0.6, 0.701961, 0.890196)
 mesh = SubResource("SphereMesh_pyidc")
 
 [node name="LeftArm" type="RigidBody3D" parent="."]
-transform = Transform3D(-0.0390157, 0, 0.999239, 0, 1, 0, -0.999239, 0, -0.0390157, 0.385429, 1.21441, 0.50008)
+transform = Transform3D(-0.0390157, 0, 0.999239, 0, 1, 0, -0.999239, 0, -0.0390157, 0.223399, 1.26321, 0.853181)
 script = ExtResource("4_jnlp7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LeftArm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0310131, -0.0712861, 0.239484)
 mesh = SubResource("BoxMesh_vvh5c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LeftArm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0323228, -0.0563889, 0.236938)
 shape = SubResource("BoxShape3D_28aoi")
 
 [node name="RightArm" type="RigidBody3D" parent="."]
-transform = Transform3D(-0.0390157, 0, 0.999239, 0, 1, 0, -0.999239, 0, -0.0390157, 0.385429, 1.21441, -0.533604)
+transform = Transform3D(-0.0390157, 0, 0.999239, 0, 1, 0, -0.999239, 0, -0.0390157, 0.254992, 1.21441, -0.812396)
 script = ExtResource("5_l8v81")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RightArm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0091573, 0, 0.23453)
 mesh = SubResource("BoxMesh_vvh5c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RightArm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00917572, 0, 0.235001)
 shape = SubResource("BoxShape3D_28aoi")
 
 [node name="Joints" type="Node3D" parent="."]
 transform = Transform3D(-0.0390157, 0, 0.999239, 0, 1, 0, -0.999239, 0, -0.0390157, 0.385429, 1.21441, -0.619187)
 
-[node name="LeftArmtoBar" type="Generic6DOFJoint3D" parent="Joints"]
-node_a = NodePath("../../Bar")
+[node name="LeftArmtoFrontBar" type="PinJoint3D" parent="Joints"]
+node_a = NodePath("../../FrontBar")
 node_b = NodePath("../../LeftArm")
 
-[node name="RightArmtoBar" type="Generic6DOFJoint3D" parent="Joints"]
-node_a = NodePath("../../Bar")
+[node name="RightArmtoFrontBar" type="PinJoint3D" parent="Joints"]
+node_a = NodePath("../../FrontBar")
 node_b = NodePath("../../RightArm")
+
+[node name="RightArmtoBackBar" type="PinJoint3D" parent="Joints"]
+node_a = NodePath("../../BackBar")
+node_b = NodePath("../../RightArm")
+
+[node name="LeftArmtoBackBar" type="PinJoint3D" parent="Joints"]
+node_a = NodePath("../../BackBar")
+node_b = NodePath("../../LeftArm")
